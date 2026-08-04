@@ -112,7 +112,7 @@ int main(int hartid, char **argv) {
   kprintf("Hello world!!!\r\n");
 
   REG32(gpio, GPIO_OUTPUT_EN) = 0x0000ffff;
-  REG32(gpio, GPIO_INPUT_EN)  = 0x00010000;
+  // REG32(gpio, GPIO_INPUT_EN)  = 0x00010000; // Not functional due to system configuration
 
 //   uint32_t nodeoffset;
 //   uint32_t uart_reg;
