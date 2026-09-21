@@ -5,7 +5,7 @@
 
 int main() {
   printf("Hello world from PHAM Lab\r\n");
-  printf("Student name: xxx_xxx_xxx\r\n");
+  printf("Student name: ngxx-fus\r\n");
   printf("Config: RVxxIxxxx, x KB D-Cache, x KB-ICache\r\n");
   return 0;
 }
