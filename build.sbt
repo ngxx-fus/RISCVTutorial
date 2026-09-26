@@ -153,7 +153,7 @@ lazy val chipyard = (project in file("generators/chipyard"))
     sha3, // On separate line to allow for cleaner tutorial-setup patches
     dsptools, `rocket-dsp-utils`,
     gemmini, icenet, tracegen, cva6, nvdla, sodor, ibex, fft_generator,
-    constellation, mempress, barf, shuttle)
+    constellation, mempress, barf, shuttle, ethcomm) // Add ethcomm to the list of dependencies
   .settings(libraryDependencies ++= rocketLibDeps.value)
   .settings(
     libraryDependencies ++= Seq(
@@ -227,6 +227,12 @@ lazy val sha3 = (project in file("generators/sha3"))
   .dependsOn(rocketchip, midasTargetUtils)
   .settings(libraryDependencies ++= rocketLibDeps.value)
   .settings(chiselTestSettings)
+  .settings(commonSettings)
+
+// -- Chipyard-managed Internal Projects | with EthComm --
+lazy val ethcomm = (project in file("generators/ethcomm"))
+  .dependsOn(rocketchip, cde)
+  .settings(libraryDependencies ++= rocketLibDeps.value)
   .settings(commonSettings)
 
 lazy val gemmini = (project in file("generators/gemmini"))

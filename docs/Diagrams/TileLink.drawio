@@ -1,0 +1,89 @@
+<mxfile host="65bd71144e">
+    <diagram id="wZyPwDJ8BgCoOat_Gp1Q" name="Page-1">
+        <mxGraphModel dx="1513" dy="1518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="root_frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;dashed=0;" value="" vertex="1">
+                    <mxGeometry height="1000" width="1000" x="40" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="soc_box" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontStyle=1;fontSize=13;fontFamily=Helvetica;startSize=26;collapsible=0;" value="ROCKETCHIP SOC" vertex="1">
+                    <mxGeometry height="380" width="960" x="60" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="core_node" parent="soc_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="Rocket RV32 Core&#xa;(1 Core, RV32IMAC)" vertex="1">
+                    <mxGeometry height="60" width="220" x="40" y="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="l1_cache" parent="soc_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="L1 Data / Instruction&#xa;Caches" vertex="1">
+                    <mxGeometry height="60" width="220" x="40" y="145" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_core_l1" edge="1" parent="soc_box" source="core_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;" target="l1_cache" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sbus_node" parent="soc_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="System Bus (sbus)&#xa;[TL-UH Crossbar]" vertex="1">
+                    <mxGeometry height="60" width="240" x="450" y="145" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_l1_sbus" edge="1" parent="soc_box" source="l1_cache" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" target="sbus_node" value="TileLink (TL-UH)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pbus_node" parent="soc_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="Peripheral Bus (pbus)&#xa;[TL Master Interface]" vertex="1">
+                    <mxGeometry height="50" width="240" x="450" y="235" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_sbus_pbus" edge="1" parent="soc_box" source="sbus_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;" target="pbus_node" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="fragmenter_node" parent="soc_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="TLFragmenter&#xa;(Burst Access Serialization)" vertex="1">
+                    <mxGeometry height="45" width="240" x="450" y="315" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_pbus_frag" edge="1" parent="soc_box" source="pbus_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;fontSize=9;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" target="fragmenter_node" value="TileLink-UL">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="tl_bus_box" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontStyle=1;fontSize=11;fontFamily=Helvetica;startSize=24;collapsible=0;" value="TILELINK-UL INTERCONNECT &amp;amp; PROTOCOL SIGNALS" vertex="1">
+                    <mxGeometry height="150" width="800" x="140" y="465" as="geometry"/>
+                </mxCell>
+                <mxCell id="chan_a_label" parent="tl_bus_box" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Courier New;fontStyle=0;" value="Channel A (Master -&amp;gt; Slave): Request [Get / PutFull / PutPartial]&#xa;Signals: a_valid, a_ready, a_opcode, a_address, a_data, a_mask, a_size, a_source" vertex="1">
+                    <mxGeometry height="35" width="740" x="20" y="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="chan_d_label" parent="tl_bus_box" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Courier New;fontStyle=0;" value="Channel D (Slave -&amp;gt; Master): Response [AccessAck / AccessAckData]&#xa;Signals: d_valid, d_ready, d_opcode, d_data, d_size, d_source" vertex="1">
+                    <mxGeometry height="35" width="740" x="20" y="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_soc_bus" edge="1" parent="1" source="fragmenter_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;" target="tl_bus_box" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="460" y="397.51"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="ip_box" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontStyle=1;fontSize=13;fontFamily=Helvetica;startSize=26;collapsible=0;" value="CUSTOM IP: TLEthComm" vertex="1">
+                    <mxGeometry height="380" width="960" x="60" y="640" as="geometry"/>
+                </mxCell>
+                <mxCell id="manager_node" parent="ip_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="TLManagerNode [TL Slave Interface]&#xa;(Address Map: 0x3000_0000 - 0x300F_FFFF, Size: 1MB)" vertex="1">
+                    <mxGeometry height="50" width="760" x="100" y="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="hw_imp_box" parent="ip_box" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontStyle=1;fontSize=11;fontFamily=Helvetica;startSize=24;collapsible=0;" value="TLEthCommModuleImp (Hardware Implementation Logic)" vertex="1">
+                    <mxGeometry height="245" width="760" x="100" y="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="decoder_node" parent="hw_imp_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=10;fontFamily=Helvetica;fontStyle=1;" value="Channel A Decoder &amp;amp; Flow Control&#xa;(isGet, isPut, wdataVec, mask decoding)" vertex="1">
+                    <mxGeometry height="55" width="280" x="40" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="resp_pipe_node" parent="hw_imp_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=10;fontFamily=Helvetica;fontStyle=1;" value="Channel D Response Pipeline&#xa;(r_opcode, r_source, r_size, d_valid)" vertex="1">
+                    <mxGeometry height="55" width="280" x="440" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="sram_node" parent="hw_imp_box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1;fontSize=11;fontFamily=Helvetica;fontStyle=1;" value="SyncReadMem (SRAM)&#xa;1MB Multi-Beat Buffer / Word-Aligned Storage&#xa;[Sync Read / Masked Byte Write]" vertex="1">
+                    <mxGeometry height="75" width="380" x="190" y="145" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_dec_sram" edge="1" parent="hw_imp_box" source="decoder_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;fontSize=9;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" target="sram_node" value="Write Path (mem.write)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_sram_pipe" edge="1" parent="hw_imp_box" source="sram_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;fontSize=9;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" target="resp_pipe_node" value="Read Data (rdataBits)">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_mgr_dec" edge="1" parent="ip_box" source="manager_node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;" target="hw_imp_box" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_bus_ip" edge="1" parent="1" source="tl_bus_box" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1;endArrow=classic;endFill=1;" target="manager_node" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

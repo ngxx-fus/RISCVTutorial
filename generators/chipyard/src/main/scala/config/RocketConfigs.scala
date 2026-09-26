@@ -142,3 +142,11 @@ class PrefetchingRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNonblockingL1(2) ++                           // non-blocking L1D$, L1 prefetching only works with non-blocking L1D$
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++                               // single rocket-core
   new chipyard.config.AbstractConfig)
+
+// Custom RocketConfig with EthComm IP block enabled at default address 0x3000_0000
+class RV32EthCommRocketConfig extends Config(
+  new ethcomm.WithEthComm ++                                // enable EthComm IP (default 0x3000_0000)
+  new freechips.rocketchip.subsystem.WithRV32 ++
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++
+  new chipyard.config.AbstractConfig
+)
